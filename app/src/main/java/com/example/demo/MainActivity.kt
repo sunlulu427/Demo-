@@ -2,8 +2,6 @@ package com.example.demo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.demo.util.toast
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
