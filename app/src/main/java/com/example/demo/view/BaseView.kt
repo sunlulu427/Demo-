@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
 
@@ -15,12 +16,22 @@ class BaseView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyle: Int = 0
 ) : View(context, attrs, defStyle) {
 
+    private val paint = Paint().apply {
+        color = Color.RED
+        style = Paint.Style.STROKE
+        strokeWidth = 5f
+    }
+
+    private val path = Path()
+
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
-//        canvas?.drawRGB(255, 0, 255)
-        canvas?.drawARGB(0xFF, 0XFF, 0, 0XFF)
-//        canvas?.drawColor(0xFFFF00FF.toInt())
+        path.moveTo(10f, 10f)
+        path.lineTo(10f, 100f)
+        path.lineTo(300f, 100f)
+        path.close()
+        canvas?.drawPath(path, paint)
     }
 
 }
