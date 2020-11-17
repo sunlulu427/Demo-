@@ -20,12 +20,15 @@ class BaseView @JvmOverloads constructor(
 
         // 设置画笔的基本属性
         val paint = Paint().apply {
-            color = Color.RED
-            style = Paint.Style.STROKE
+            color = 0xFFFF0000.toInt()
+            style = Paint.Style.FILL
             strokeWidth = 50f
         }
 
         // 画圆
         canvas?.drawCircle(190f, 200f, 150f, paint)
+
+        paint.color = 0x7EFFFF00
+        canvas?.drawCircle(190f, 200f, 100f, paint)
     }
 }
