@@ -18,17 +18,9 @@ class BaseView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
-        // 设置画笔的基本属性
-        val paint = Paint().apply {
-            color = 0xFFFF0000.toInt()
-            style = Paint.Style.FILL
-            strokeWidth = 50f
-        }
-
-        // 画圆
-        canvas?.drawCircle(190f, 200f, 150f, paint)
-
-        paint.color = 0x7EFFFF00
-        canvas?.drawCircle(190f, 200f, 100f, paint)
+//        canvas?.drawRGB(255, 0, 255)
+        canvas?.drawARGB(0xFF, 0XFF, 0, 0XFF)
+//        canvas?.drawColor(0xFFFF00FF.toInt())
     }
+
 }
