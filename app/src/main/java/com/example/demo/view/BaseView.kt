@@ -1,10 +1,7 @@
 package com.example.demo.view
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 
@@ -28,10 +25,8 @@ class BaseView @JvmOverloads constructor(
         super.onDraw(canvas)
 
         path.moveTo(10f, 10f)
-        path.lineTo(10f, 100f)
-        path.lineTo(300f, 100f)
-        path.close()
+        val recF = RectF(100f, 10f, 200f, 100f)
+        path.arcTo(recF, 0f, 90f, true)
         canvas?.drawPath(path, paint)
     }
-
 }
