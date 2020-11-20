@@ -22,14 +22,17 @@ class BaseView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
-        canvas?.drawColor(Color.RED)
-        canvas?.save()
+        val baseLineX = 0f
+        val baseLineY = 200f
 
-        canvas?.clipRect(100, 100, 800, 800)
-        canvas?.drawColor(Color.GREEN)
+        val paint = Paint()
+        paint.color = Color.RED
+        canvas?.drawLine(baseLineX, baseLineY, 3000f, baseLineY, paint)
 
-        canvas?.restore()
-        canvas?.drawColor(Color.BLUE)
+        paint.color = Color.GREEN
+        paint.textSize = 120f
+        paint.textAlign = Paint.Align.RIGHT
+        canvas?.drawText("harvic\'s blog", baseLineX, baseLineY, paint)
     }
 
     private fun drawRegion(canvas: Canvas?, region: Region, paint: Paint) {
