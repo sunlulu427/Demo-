@@ -22,14 +22,14 @@ class BaseView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
-        val greenPaint = generatePaint(Color.GREEN, Paint.Style.STROKE, 3)
-        val redPaint = generatePaint(Color.RED, Paint.Style.STROKE, 3)
+        canvas?.drawColor(Color.RED)
+        canvas?.save()
 
-        val rect1 = Rect(0, 0, 400, 220)
-        canvas?.drawRect(rect1, greenPaint)
+        canvas?.clipRect(100, 100, 800, 800)
+        canvas?.drawColor(Color.GREEN)
 
-        canvas?.translate(100f, 100f)
-        canvas?.drawRect(rect1, redPaint)
+        canvas?.restore()
+        canvas?.drawColor(Color.BLUE)
     }
 
     private fun drawRegion(canvas: Canvas?, region: Region, paint: Paint) {
