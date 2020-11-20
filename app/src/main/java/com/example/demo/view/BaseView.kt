@@ -15,8 +15,7 @@ class BaseView @JvmOverloads constructor(
 
     private val paint = Paint().apply {
         color = Color.RED
-        style = Paint.Style.STROKE
-        strokeWidth = 5f
+        style = Paint.Style.FILL
     }
 
     private val path = Path()
@@ -24,9 +23,15 @@ class BaseView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
-        path.moveTo(10f, 10f)
-        val recF = RectF(100f, 10f, 200f, 100f)
-        path.arcTo(recF, 0f, 90f, true)
-        canvas?.drawPath(path, paint)
+        val region = Region(Rect(50, 50, 200, 100))
+    }
+
+    private fun drawRegion(canvas: Canvas?, region: Region, paint: Paint) {
+        val iter = RegionIterator(region)
+        val r = Rect()
+
+        while (iter.next(r)) {
+            canvas?.drawRect(r, paint)
+        }
     }
 }
