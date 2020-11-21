@@ -6,8 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.example.demo.view.BaseView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <com.example.demo.KtvMusicTagsView
+        android:id="@+id/music_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:background="@android:color/holo_green_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
