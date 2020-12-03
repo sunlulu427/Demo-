@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rotate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fromDegrees="0"
-    android:toDegrees="-650"
-    android:duration="3000"
-    android:fillAfter="true"
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromXDelta="0"
+    android:toXDelta="-80"
+    android:fromYDelta="0"
+    android:toYDelta="-80"
+    android:duration="2000"
     >
-</rotate>
+</translate>
