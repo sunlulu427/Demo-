@@ -2,10 +2,7 @@ package com.example.demo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.view.animation.ScaleAnimation
+import android.view.animation.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,9 +12,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         start_anim.setOnClickListener {
-            val animation = AlphaAnimation(1f, 0.1f).also {
-                it.duration = 3000L
-                it.fillBefore = true
+            val animation = RotateAnimation(0f, -650f, Animation.RELATIVE_TO_SELF,
+                0.5f, Animation.RELATIVE_TO_SELF, 0.5f).also {
+                it.duration = 500L
+                it.fillAfter = true
             }
             tv.startAnimation(animation)
         }
