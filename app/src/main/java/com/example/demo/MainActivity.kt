@@ -2,6 +2,7 @@ package com.example.demo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.ScaleAnimation
@@ -14,9 +15,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         start_anim.setOnClickListener {
-            val animation = ScaleAnimation(0f, 1.4f, 0f, 1.4f,
-                Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, .5f).also {
-                it.duration = 700
+            val animation = AlphaAnimation(1f, 0.1f).also {
+                it.duration = 3000L
+                it.fillBefore = true
             }
             tv.startAnimation(animation)
         }
