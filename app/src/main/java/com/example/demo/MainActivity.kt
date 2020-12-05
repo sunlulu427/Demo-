@@ -12,7 +12,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         start_anim.setOnClickListener {
-            val animationSet = AnimationUtils.loadAnimation(this, R.anim.scaleanim)
+            val animationSet = AnimationUtils.loadAnimation(this, R.anim.scaleanim).also {
+                it.interpolator = AccelerateDecelerateInterpolator()
+            }
             tv.startAnimation(animationSet)
         }
     }
