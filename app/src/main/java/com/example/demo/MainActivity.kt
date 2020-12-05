@@ -12,10 +12,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         start_anim.setOnClickListener {
-            val animation = RotateAnimation(0f, -650f, Animation.RELATIVE_TO_SELF,
-                0.5f, Animation.RELATIVE_TO_SELF, 0.5f).also {
-                it.duration = 500L
-                it.fillAfter = true
+            val animation = TranslateAnimation(
+                Animation.ABSOLUTE, 0f, Animation.ABSOLUTE, -80f,
+                Animation.ABSOLUTE, 0F, Animation.ABSOLUTE, -80F
+            ).also {
+                it.duration = 2000
+                it.fillBefore = true
             }
             tv.startAnimation(animation)
         }
