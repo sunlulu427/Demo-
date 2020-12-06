@@ -14,11 +14,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         start_anim.setOnClickListener {
-            val animator = ValueAnimator.ofInt(0, 400).also {
-                it.duration = 1000
+            val animator = ValueAnimator.ofFloat(0f, 400f, 50f, 300f).also {
+                it.duration = 3000
             }
             animator.addUpdateListener {
-                val curValue = it.animatedValue as Int
+                val curValue = (it.animatedValue as Float).toInt()
                 tv.layout(curValue, curValue, curValue + tv.width, curValue + tv.height)
             }
             animator.start()
