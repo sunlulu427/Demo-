@@ -12,9 +12,8 @@ import android.view.animation.AccelerateDecelerateInterpolator
  **/
 class LoadingImageView @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet? = null,
-    defStyle: Int = 0
-) : androidx.appcompat.widget.AppCompatImageView(context, attrs, defStyle) {
+    attrs: AttributeSet? = null
+) : androidx.appcompat.widget.AppCompatImageView(context, attrs) {
 
     companion object {
         private const val IMAGE_COUNT = 3
@@ -39,10 +38,10 @@ class LoadingImageView @JvmOverloads constructor(
             override fun onAnimationRepeat(animation: Animator?) {
                 mCurImageIndex ++
                 setImageDrawable(when (mCurImageIndex % IMAGE_COUNT) {
-                    0 -> resources.getDrawable(R.drawable.x1)
-                    1 -> resources.getDrawable(R.drawable.x2)
-                    2 -> resources.getDrawable(R.drawable.x3)
-                    else -> resources.getDrawable(R.drawable.x4)
+                    0 -> resources.getDrawable(R.drawable.x1, null)
+                    1 -> resources.getDrawable(R.drawable.x2, null)
+                    2 -> resources.getDrawable(R.drawable.x3, null)
+                    else -> resources.getDrawable(R.drawable.x4, null)
                 })
             }
 
