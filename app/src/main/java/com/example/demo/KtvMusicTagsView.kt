@@ -31,14 +31,15 @@ class KtvMusicTagsView  @JvmOverloads constructor(
     }
     private var centerLine = 0f
     private var baseLine = 0f
-    private val gap = ResUtil.dp2px(5f)
+    private val gap = ResUtil.dp2px(4f)
     private val padding = ResUtil.dp2px(2f)
     private val rect = RectF()
     private var startX = 0f
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        centerLine = (height) / 2f
+        startX = 0f
+        centerLine = (measuredHeight) / 2f
         baseLine = centerLine + (paint.fontMetrics.bottom - paint.fontMetrics.top) / 2 - paint.fontMetrics.bottom
         paint.textSize = ResUtil.dp2px(13f).toFloat()
 
@@ -64,6 +65,6 @@ class KtvMusicTagsView  @JvmOverloads constructor(
     }
 
     private fun calcStartX(index: Int): Float {
-        return index * 2f * padding + index * gap
+        return index * 2f * padding +  + index * gap
     }
 }
