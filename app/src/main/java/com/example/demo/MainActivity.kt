@@ -1,5 +1,6 @@
 package com.example.demo
 
+import android.animation.Animator
 import android.animation.ValueAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,19 +14,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        var repeatAnimator: ValueAnimator? = null
         start_anim.setOnClickListener {
-            val animator = ValueAnimator.ofFloat(0f, 400f, 50f, 300f).also {
-                it.duration = 3000
-            }
-            animator.addUpdateListener {
-                val curValue = (it.animatedValue as Float).toInt()
-                tv.layout(curValue, curValue, curValue + tv.width, curValue + tv.height)
-            }
-            animator.start()
+            if (repeatAnimator == null || !repeatAnimator!!.isRunning)
+            repeatAnimator = doRepeatAnim()
         }
 
-        tv.setOnClickListener {
-            normalToast("click me")
+        cancel_anim.setOnClickListener {
+            repeatAnimator?.cancel()
         }
+    }
+
+    private fun doRepeatAnim(): ValueAnimator {
+        val animator = ValueAnimator.ofInt(0, 400)
+        animator.addUpdateListener {
+            val curValue = it.animatedValue as Int
+            tv.layout(tv.left, curValue, tv.right, tv.height + curValue)
+        }
+        animator.repeatMode = ValueAnimator.REVERSE
+        animator.repeatCount = ValueAnimator.INFINITE
+        animator.duration = 1000
+        animator.start()
+        return animator
     }
 }
