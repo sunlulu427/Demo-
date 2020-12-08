@@ -6,32 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.example.demo.FallingBallImageView
-        android:id="@+id/image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/x1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.example.demo.CustomTextView
-        android:id="@+id/custom_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="动画"
-        android:textSize="9dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/start_anim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="开始动画"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="start anim"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textView_1"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/start_anim"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/start_anim" />
+
+    <TextView
+        android:id="@+id/tv_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="textView_2"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/start_anim"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/start_anim" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

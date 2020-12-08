@@ -1,5 +1,6 @@
 package com.example.demo
 
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.graphics.Point
 import androidx.appcompat.app.AppCompatActivity
@@ -13,17 +14,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         start_anim.setOnClickListener {
-            val animator = ObjectAnimator.ofObject(image, "fallingPos",
-                FallingBallEvaluator(), Point(0, 0), Point(500, 500))
-            animator.duration = 2000
-            animator.start()
-        }
+            val tv1Animator = ObjectAnimator.ofInt(tv_1, "BackgroundColor", 0xffff00ff.toInt(), 0xffffff00.toInt(), 0xffff00ff.toInt())
+            val tv1TranslateAnimator = ObjectAnimator.ofFloat(tv_1, "translationY", 0f, 300f, 0f)
+            val tv2Animator = ObjectAnimator.ofFloat(tv_2, "translationY", 0f, 400f, 0f)
 
-        start_anim.setOnLongClickListener {
-            val animator = ObjectAnimator.ofFloat(custom_tv, "scaleSize", 6f)
-            animator.duration = 2000L
-            animator.start()
-            false
+            val animatorSet = AnimatorSet()
+            animatorSet.playSequentially(tv1Animator, tv1TranslateAnimator, tv2Animator)
+            animatorSet.setDuration(1000)
+            animatorSet.start()
         }
     }
 }
