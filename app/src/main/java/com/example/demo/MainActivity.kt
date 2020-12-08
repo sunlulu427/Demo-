@@ -21,18 +21,15 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             val tv1Animator = ObjectAnimator.ofInt(tv_1, "BackgroundColor", 0xffff00ff.toInt(), 0xffffff00.toInt(), 0xffff00ff.toInt())
-            tv1Animator.repeatCount = ValueAnimator.INFINITE
             val tv1TranslateAnimator = ObjectAnimator.ofFloat(tv_1, "translationY", 0f, 400f, 0f)
-            tv1TranslateAnimator.startDelay = 2000L
-            tv1TranslateAnimator.repeatCount = ValueAnimator.INFINITE
 
             val tv2Animator = ObjectAnimator.ofFloat(tv_2, "translationY", 0f, 400f, 0f)
-            tv2Animator.startDelay = 2000L
-            tv2Animator.repeatCount = ValueAnimator.INFINITE
 
             animatorSet = AnimatorSet()
-            animatorSet?.playTogether(tv1Animator, tv1TranslateAnimator, tv2Animator)
-            animatorSet?.duration = 2000
+            animatorSet?.duration = 3000L
+            animatorSet?.play(tv1TranslateAnimator)
+                ?.with(tv2Animator)
+                ?.after(tv1Animator)
             animatorSet?.start()
         }
     }
