@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             tv2Animator.startDelay = 2000L
 
             animatorSet = AnimatorSet()
-            animatorSet?.playTogether(tv1Animator, tv1TranslateAnimator, tv2Animator)
+            animatorSet?.playSequentially(tv1Animator, tv1TranslateAnimator, tv2Animator)
             animatorSet?.duration = 2000
             animatorSet?.start()
         }
