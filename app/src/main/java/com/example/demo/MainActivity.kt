@@ -18,5 +18,12 @@ class MainActivity : AppCompatActivity() {
             animator.duration = 2000
             animator.start()
         }
+
+        start_anim.setOnLongClickListener {
+            val animator = ObjectAnimator.ofFloat(custom_tv, "scaleSize", 6f)
+            animator.duration = 2000L
+            animator.start()
+            false
+        }
     }
 }

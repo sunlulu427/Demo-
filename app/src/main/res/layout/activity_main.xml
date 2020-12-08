@@ -14,6 +14,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.example.demo.CustomTextView
+        android:id="@+id/custom_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="动画"
+        android:textSize="9dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/start_anim"
         android:layout_width="wrap_content"
