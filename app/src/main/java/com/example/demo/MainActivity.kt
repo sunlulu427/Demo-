@@ -2,6 +2,7 @@ package com.example.demo
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.graphics.Point
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,15 +14,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        var animatorSet: AnimatorSet? = null
         start_anim.setOnClickListener {
+            if (animatorSet?.isRunning == true) {
+                animatorSet?.cancel()
+                return@setOnClickListener
+            }
             val tv1Animator = ObjectAnimator.ofInt(tv_1, "BackgroundColor", 0xffff00ff.toInt(), 0xffffff00.toInt(), 0xffff00ff.toInt())
-            val tv1TranslateAnimator = ObjectAnimator.ofFloat(tv_1, "translationY", 0f, 300f, 0f)
-            val tv2Animator = ObjectAnimator.ofFloat(tv_2, "translationY", 0f, 400f, 0f)
+            val tv1TranslateAnimator = ObjectAnimator.ofFloat(tv_1, "translationY", 0f, 400f, 0f)
+            tv1TranslateAnimator.startDelay = 2000L
+            tv1TranslateAnimator.repeatCount = ValueAnimator.INFINITE
 
-            val animatorSet = AnimatorSet()
-            animatorSet.playTogether(tv1Animator, tv1TranslateAnimator, tv2Animator)
-            animatorSet.setDuration(1000)
-            animatorSet.start()
+            val tv2Animator = ObjectAnimator.ofFloat(tv_2, "translationY", 0f, 400f, 0f)
+            tv2Animator.startDelay = 2000L
+
+            animatorSet = AnimatorSet()
+            animatorSet?.playTogether(tv1Animator, tv1TranslateAnimator, tv2Animator)
+            animatorSet?.duration = 2000
+            animatorSet?.start()
         }
     }
 }
