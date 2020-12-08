@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         start_anim.setOnClickListener {
-            val animator = ObjectAnimator.ofFloat(image, "translateX", 0f, 270f, 0f)
+            val animator = ObjectAnimator.ofFloat(image, "translationX", 0f, 270f, 0f)
             animator.duration = 5000
             animator.start()
         }
