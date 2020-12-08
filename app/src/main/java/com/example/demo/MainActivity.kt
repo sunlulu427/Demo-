@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
             val tv2Animator = ObjectAnimator.ofFloat(tv_2, "translationY", 0f, 400f, 0f)
 
             val animatorSet = AnimatorSet()
-            animatorSet.playSequentially(tv1Animator, tv1TranslateAnimator, tv2Animator)
+            animatorSet.playTogether(tv1Animator, tv1TranslateAnimator, tv2Animator)
             animatorSet.setDuration(1000)
             animatorSet.start()
         }
