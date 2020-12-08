@@ -48,4 +48,5 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation "org.jetbrains.anko:anko:$anko_version"
+    implementation 'com.tinder.statemachine:statemachine:0.2.0'
 }
