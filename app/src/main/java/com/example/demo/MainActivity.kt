@@ -20,16 +20,17 @@ class MainActivity : AppCompatActivity() {
                 animatorSet?.cancel()
                 return@setOnClickListener
             }
-            val tv1Animator = ObjectAnimator.ofInt(tv_1, "BackgroundColor", 0xffff00ff.toInt(), 0xffffff00.toInt(), 0xffff00ff.toInt())
+//            val tv1Animator = ObjectAnimator.ofInt(tv_1, "BackgroundColor", 0xffff00ff.toInt(), 0xffffff00.toInt(), 0xffff00ff.toInt())
             val tv1TranslateAnimator = ObjectAnimator.ofFloat(tv_1, "translationY", 0f, 400f, 0f)
 
             val tv2Animator = ObjectAnimator.ofFloat(tv_2, "translationY", 0f, 400f, 0f)
+            tv2Animator.startDelay = 2000L
 
             animatorSet = AnimatorSet()
-            animatorSet?.duration = 3000L
+            animatorSet?.duration = 2000
+            animatorSet?.startDelay = 2000
             animatorSet?.play(tv1TranslateAnimator)
                 ?.with(tv2Animator)
-                ?.after(tv1Animator)
             animatorSet?.start()
         }
     }
