@@ -10,3 +10,9 @@ fun main() {
     val list = listOf<Int>(1, 2, 5, 8)
     println(list.fold(0) { res, element -> res + element })
 }
+
+class Swimmer {
+    fun swim() {
+        println("I am swimming")
+    }
+}
