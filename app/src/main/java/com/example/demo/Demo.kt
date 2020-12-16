@@ -12,7 +12,13 @@ fun main() {
 }
 
 class Swimmer {
-    fun swim() {
-        println("I am swimming")
+    fun breakStroke() {
+        println("I am breakStroke...")
+    }
+    fun backStroke() {
+        println("I am backStroke...")
+    }
+    fun freeStyle() {
+        println("I am freeStyle...")
     }
 }
