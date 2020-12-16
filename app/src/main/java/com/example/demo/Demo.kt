@@ -11,14 +11,26 @@ fun main() {
     println(list.fold(0) { res, element -> res + element })
 }
 
-class Swimmer {
-    fun breakStroke() {
-        println("I am breakStroke...")
+interface SwimStrategy {
+    fun swim()
+}
+class Breakstroke: SwimStrategy {
+    override fun swim() {
+        println("I am breaststrokeing...")
     }
-    fun backStroke() {
-        println("I am backStroke...")
+}
+class BackStroke: SwimStrategy {
+    override fun swim() {
+        println("I am backstroking...")
     }
-    fun freeStyle() {
+}
+class FreeStyle: SwimStrategy {
+    override fun swim() {
         println("I am freeStyle...")
+    }
+}
+class Swimmer(val strategy: SwimStrategy) {
+    fun swim() {
+        strategy.swim()
     }
 }
