@@ -1,35 +1,39 @@
-package com.example.demo
+data class ApplyEvent(val money: Int, val title: String)
 
-/**
- * @author: sunlulu.tomato@bytedance.com
- * @date:   2020/12/11 12:44 AM
- **/
-abstract class CivicCenterTask {
-    fun execute(askForHelp: () -> Unit) {
-        lineUp()
-        askForHelp()
-        evaluate()
-    }
-    private fun lineUp() {
-        println("line up to take a number")
-    }
-    private fun evaluate() {
-        println("evaluate service attitude")
-    }
-
-    abstract fun askForHelp()
+interface ApplyHandler {
+    val successor: ApplyHandler?
+    fun handleEvent(event: ApplyEvent)
 }
 
-class CivicCenterTask2 {
-    fun execute(askForHelp: () -> Unit) {
-        lineUp()
-        askForHelp()
-        evaluate()
+class GroupLeader(override val successor: ApplyHandler?): ApplyHandler {
+    override fun handleEvent(event: ApplyEvent) {
+        when {
+            event.money <= 100 -> println("Group leader handled application: ${event.title}")
+            else -> when (successor) {
+                is ApplyHandler -> successor.handleEvent(event)
+                else -> println("Group Leader: This application can not be handled.")
+            }
+        }
     }
-    private fun lineUp() {
-        println("line up to take a number")
+}
+
+class President(override val successor: ApplyHandler?): ApplyHandler {
+    override fun handleEvent(event: ApplyEvent) {
+        when {
+            event.money <= 500 -> println("President handled application: ${event.title}")
+            else -> when (successor) {
+                is ApplyHandler -> successor.handleEvent(event)
+                else -> println("President: This application can not be handled.")
+            }
+        }
     }
-    private fun evaluate() {
-        println("evaluate service attitude")
+}
+
+class College(override val successor: ApplyHandler?): ApplyHandler {
+    override fun handleEvent(event: ApplyEvent) {
+        when {
+            event.money > 1000 -> println("College: This application is refused.")
+            else -> println("College handled application ${event.title}.")
+        }
     }
 }
