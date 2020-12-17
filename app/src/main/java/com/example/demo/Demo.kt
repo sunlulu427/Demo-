@@ -51,3 +51,9 @@ val college = {
     }
     PartialFunction(definedAt, handler)
 }()
+
+val applyChain = groupLeader orElse president orElse college
+
+fun main() {
+    applyChain(ApplyEvent(600, "hold a debate match."))
+}
