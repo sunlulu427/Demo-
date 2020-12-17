@@ -4,26 +4,32 @@ package com.example.demo
  * @author: sunlulu.tomato@bytedance.com
  * @date:   2020/12/11 12:44 AM
  **/
-interface SwimStrategy {
-    fun swim()
-}
-class Breakstroke: SwimStrategy {
-    override fun swim() {
-        println("I am breaststrokeing...")
+abstract class CivicCenterTask {
+    fun execute(askForHelp: () -> Unit) {
+        lineUp()
+        askForHelp()
+        evaluate()
     }
-}
-class BackStroke: SwimStrategy {
-    override fun swim() {
-        println("I am backstroking...")
+    private fun lineUp() {
+        println("line up to take a number")
     }
-}
-class FreeStyle: SwimStrategy {
-    override fun swim() {
-        println("I am freeStyle...")
+    private fun evaluate() {
+        println("evaluate service attitude")
     }
+
+    abstract fun askForHelp()
 }
-class Swimmer(val swimming: () -> Unit) {
-    fun swim() {
-        swimming.invoke()
+
+class CivicCenterTask2 {
+    fun execute(askForHelp: () -> Unit) {
+        lineUp()
+        askForHelp()
+        evaluate()
+    }
+    private fun lineUp() {
+        println("line up to take a number")
+    }
+    private fun evaluate() {
+        println("evaluate service attitude")
     }
 }
