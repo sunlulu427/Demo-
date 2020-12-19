@@ -56,10 +56,14 @@ val college = {
 val applyChain = groupLeader orElse president orElse college
 
 fun main() {
-    val macBookPro = MacBookPro()
-    val processorUpgradeMacBookPro = ProcessorUpgradeMacBookPro(macBookPro)
-    println(processorUpgradeMacBookPro.getCost())
-    println(processorUpgradeMacBookPro.getDesc())
+    { x: (Int) -> Int -> x(1) }
+    { x: Int -> { y: Int -> x + y }}
+}
+
+interface Kind<out F, out A>
+
+interface Functor<F> {
+    fun <A, B> Kind<F, A>.map(f: (A) -> B): Kind<F, B>
 }
 
 class WaterMachine {
@@ -179,3 +183,4 @@ fun stringInterpreter(str: List<Format>) = str.fold("") { fulltext, s ->
         is NewLine -> fulltext + "\n"
     }
 }
+
