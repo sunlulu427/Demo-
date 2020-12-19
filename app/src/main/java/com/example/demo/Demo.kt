@@ -57,3 +57,37 @@ val applyChain = groupLeader orElse president orElse college
 fun main() {
     applyChain(ApplyEvent(600, "hold a debate match."))
 }
+
+open class WaterMachine {
+}
+
+sealed class WaterMachineState(open val machine: WaterMachine) {
+    fun turnHeating() {
+        if (this !is Heating) {
+            println("turn heating")
+        } else {
+            println("The state is already heating mode.")
+        }
+    }
+    fun turningColling() {
+        if (this !is Colling) {
+            println("turn colling")
+        } else {
+            println("The state is already colling state.")
+        }
+    }
+
+    fun turnOff() {
+        if (this !is Off) {
+            println("turn off")
+        } else {
+            println("The state is already off")
+        }
+    }
+}
+
+class Off(override val machine: WaterMachine): WaterMachineState(machine)
+
+class Heating(override val machine: WaterMachine): WaterMachineState(machine)
+
+class Colling(override val machine: WaterMachine): WaterMachineState(machine)
