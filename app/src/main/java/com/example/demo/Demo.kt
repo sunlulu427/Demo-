@@ -5,7 +5,7 @@ data class ApplyEvent(val money: Int, val title: String)
 class PartialFunction<in P1, out R>(
     private val definedAt: (P1) -> Boolean,
     private val f: (P1) -> R
-): (P1) -> R {
+) : (P1) -> R {
     override fun invoke(p1: P1): R {
         if (definedAt(p1)) {
             return f(p1)
@@ -17,13 +17,14 @@ class PartialFunction<in P1, out R>(
 }
 
 infix fun <P1, R> PartialFunction<P1, R>.orElse(that: PartialFunction<P1, R>): PartialFunction<P1, R> {
-    return PartialFunction({ this.isDefinedAt(it) || that.isDefinedAt(it)}) {
+    return PartialFunction({ this.isDefinedAt(it) || that.isDefinedAt(it) }) {
         when {
             this.isDefinedAt(it) -> this(it)
             else -> that(it)
         }
     }
 }
+
 // 自运行lambda
 val groupLeader = {
     val definedAt: (ApplyEvent) -> Boolean = { it.money <= 200 }
@@ -55,7 +56,10 @@ val college = {
 val applyChain = groupLeader orElse president orElse college
 
 fun main() {
-    applyChain(ApplyEvent(600, "hold a debate match."))
+    val machine = WaterMachine()
+    waterMachineOps(machine, Moment.INSTANCE_NOODLES)
+    waterMachineOps(machine, Moment.AFTER_WORK)
+    waterMachineOps(machine, Moment.DRINKING_WATER)
 }
 
 class WaterMachine {
@@ -67,12 +71,15 @@ class WaterMachine {
     init {
         this.state = off
     }
+
     fun turnHeating() {
         this.state.turnHeating()
     }
+
     fun turnColling() {
         this.state.turningColling()
     }
+
     fun turnOff() {
         this.state.turnOff()
     }
@@ -86,6 +93,7 @@ sealed class WaterMachineState(open val machine: WaterMachine) {
             println("The state is already heating mode.")
         }
     }
+
     fun turningColling() {
         if (this !is Colling) {
             println("turn colling")
@@ -103,8 +111,31 @@ sealed class WaterMachineState(open val machine: WaterMachine) {
     }
 }
 
-class Off(override val machine: WaterMachine): WaterMachineState(machine)
+class Off(override val machine: WaterMachine) : WaterMachineState(machine)
 
-class Heating(override val machine: WaterMachine): WaterMachineState(machine)
+class Heating(override val machine: WaterMachine) : WaterMachineState(machine)
 
-class Colling(override val machine: WaterMachine): WaterMachineState(machine)
+class Colling(override val machine: WaterMachine) : WaterMachineState(machine)
+
+enum class Moment {
+    EARLY_MORNING, // 早上上班
+    DRINKING_WATER, // 日常饮水
+    INSTANCE_NOODLES, // Shaw 吃泡面
+    AFTER_WORK
+}
+
+fun waterMachineOps(machine: WaterMachine, moment: Moment) {
+    when (moment) {
+        Moment.AFTER_WORK,
+        Moment.DRINKING_WATER -> when (machine.state) {
+            !is Colling -> machine.turnColling()
+        }
+        Moment.INSTANCE_NOODLES -> when (machine.state) {
+            !is Heating -> machine.turnHeating()
+        }
+        Moment.AFTER_WORK -> when (machine.state) {
+            !is Off -> machine.turnOff()
+        }
+        else -> Unit
+    }
+}
