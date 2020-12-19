@@ -3,7 +3,7 @@ import java.lang.IllegalArgumentException
 data class ApplyEvent(val money: Int, val title: String)
 
 class PartialFunction<in P1, out R>(
-    private val definedAt: (P1) -> Boolean,
+    val definedAt: (P1) -> Boolean,
     private val f: (P1) -> R
 ) : (P1) -> R {
     override fun invoke(p1: P1): R {
@@ -12,14 +12,12 @@ class PartialFunction<in P1, out R>(
         }
         throw IllegalArgumentException("Value: $p1 isn't supported by this function")
     }
-
-    fun isDefinedAt(p1: P1) = definedAt(p1)
 }
 
 infix fun <P1, R> PartialFunction<P1, R>.orElse(that: PartialFunction<P1, R>): PartialFunction<P1, R> {
-    return PartialFunction({ this.isDefinedAt(it) || that.isDefinedAt(it) }) {
+    return PartialFunction({ this.definedAt(it) || that.definedAt(it) }) {
         when {
-            this.isDefinedAt(it) -> this(it)
+            this.definedAt(it) -> this(it)
             else -> that(it)
         }
     }
