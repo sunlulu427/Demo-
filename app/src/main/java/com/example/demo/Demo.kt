@@ -57,13 +57,20 @@ val college = {
 
 val applyChain = groupLeader orElse president orElse college
 
-fun main() = runBlocking {
-    val job = launch {
-        search()
-    }
-    println("hello, ")
-    job.join()
+suspend fun searchItemOne(): String {
+    delay(1000L)
+    return "item-one"
+}
 
+suspend fun searchItemTwo(): String {
+    delay(1000L)
+    return "item-two"
+}
+
+fun main() = runBlocking<Unit> {
+    val one = async { searchItemOne() }
+    val two = async { searchItemTwo() }
+    println("The item is ${one.await()} and ${two.await()}")
 }
 
 suspend fun search() {
