@@ -139,3 +139,21 @@ fun waterMachineOps(machine: WaterMachine, moment: Moment) {
         else -> Unit
     }
 }
+
+interface MacBook {
+    fun getCost(): Int
+    fun getDesc(): String
+    fun getProdDate(): String
+}
+
+class MacBookPro: MacBook {
+    override fun getCost() = 10000
+    override fun getDesc() = "MacBookPro"
+    override fun getProdDate() = "Late 2011"
+}
+
+// 装饰类
+class ProcessorUpgradeMacBookPro(val macBook: MacBook): MacBook by macBook {
+    override fun getCost() = macBook.getCost() + 219
+    override fun getDesc() = macBook.getDesc() + ", +1G Memory"
+}
