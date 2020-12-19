@@ -56,10 +56,10 @@ val college = {
 val applyChain = groupLeader orElse president orElse college
 
 fun main() {
-    val machine = WaterMachine()
-    waterMachineOps(machine, Moment.INSTANCE_NOODLES)
-    waterMachineOps(machine, Moment.AFTER_WORK)
-    waterMachineOps(machine, Moment.DRINKING_WATER)
+    val macBookPro = MacBookPro()
+    val processorUpgradeMacBookPro = ProcessorUpgradeMacBookPro(macBookPro)
+    println(processorUpgradeMacBookPro.getCost())
+    println(processorUpgradeMacBookPro.getDesc())
 }
 
 class WaterMachine {
@@ -156,4 +156,26 @@ class MacBookPro: MacBook {
 class ProcessorUpgradeMacBookPro(val macBook: MacBook): MacBook by macBook {
     override fun getCost() = macBook.getCost() + 219
     override fun getDesc() = macBook.getDesc() + ", +1G Memory"
+}
+
+sealed class Format
+data class Print(val text: String): Format()
+object NewLine: Format()
+
+val string = listOf<Format>(Print("Hello"), NewLine, Print("Kotlin"))
+
+fun unsafeInterpreter(str: List<Format>) {
+    str.forEach {
+        when (it) {
+            is Print -> print(it.text)
+            is NewLine -> println()
+        }
+    }
+}
+
+fun stringInterpreter(str: List<Format>) = str.fold("") { fulltext, s ->
+    when (s) {
+        is Print -> fulltext + s.text
+        is NewLine -> fulltext + "\n"
+    }
 }
