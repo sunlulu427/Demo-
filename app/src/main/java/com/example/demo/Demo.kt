@@ -3,6 +3,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.lang.IllegalArgumentException
+import java.util.concurrent.locks.Lock
+import java.util.concurrent.locks.ReentrantLock
 
 data class ApplyEvent(val money: Int, val title: String)
 
@@ -220,6 +222,30 @@ class Shop {
             val stock = goods.getValue(id)
             goods[id] = stock - 1
         }
+    }
+
+    var lock = ReentrantLock()
+    fun butGoods3(id: Long) {
+        lock.lock()
+        try {
+            val stock = goods.getValue(id)
+            goods[id] = stock - 1
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        } finally {
+            lock.unlock()
+        }
+    }
+}
+
+fun <T> withLock(lock: Lock, action: () -> T): T {
+    lock.lock()
+    try {
+        return action()
+    } catch (e: Exception) {
+        e.printStackTrace()
+    } finally {
+        lock.unlock()
     }
 }
 
