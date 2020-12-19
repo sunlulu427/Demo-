@@ -1,3 +1,7 @@
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.lang.IllegalArgumentException
 
 data class ApplyEvent(val money: Int, val title: String)
@@ -53,9 +57,18 @@ val college = {
 
 val applyChain = groupLeader orElse president orElse college
 
-fun main() {
-    { x: (Int) -> Int -> x(1) }
-    { x: Int -> { y: Int -> x + y }}
+fun main() = runBlocking {
+    val job = launch {
+        search()
+    }
+    println("hello, ")
+    job.join()
+
+}
+
+suspend fun search() {
+    delay(1000L)
+    println("World!")
 }
 
 interface Kind<out F, out A>
