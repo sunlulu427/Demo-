@@ -58,7 +58,24 @@ fun main() {
     applyChain(ApplyEvent(600, "hold a debate match."))
 }
 
-open class WaterMachine {
+class WaterMachine {
+    var state: WaterMachineState
+    var off = Off(this)
+    var heating = Heating(this)
+    var colling = Colling(this)
+
+    init {
+        this.state = off
+    }
+    fun turnHeating() {
+        this.state.turnHeating()
+    }
+    fun turnColling() {
+        this.state.turningColling()
+    }
+    fun turnOff() {
+        this.state.turnOff()
+    }
 }
 
 sealed class WaterMachineState(open val machine: WaterMachine) {
