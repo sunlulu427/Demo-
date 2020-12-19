@@ -202,3 +202,24 @@ fun stringInterpreter(str: List<Format>) = str.fold("") { fulltext, s ->
     }
 }
 
+class Shop {
+    val goods = hashMapOf<Long, Int>()
+
+    init {
+        goods[1] = 10
+        goods[2] = 15
+    }
+
+    @Synchronized fun buyGoods(id: Long) {
+        val stock = goods.getValue(id)
+        goods[id] = stock - 1
+    }
+
+    fun buyGoods2(id: Long) {
+        synchronized(this) {
+            val stock = goods.getValue(id)
+            goods[id] = stock - 1
+        }
+    }
+}
+
