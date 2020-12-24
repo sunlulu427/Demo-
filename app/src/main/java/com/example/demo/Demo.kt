@@ -1,10 +1,21 @@
+import android.os.Build
+import androidx.annotation.RequiresApi
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.lang.IllegalArgumentException
+import java.util.*
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Executors
 import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
+import java.util.stream.Collector
+import java.util.stream.Collectors
+import java.util.stream.Collectors.toList
+import java.util.stream.Stream
 
 data class ApplyEvent(val money: Int, val title: String)
 
@@ -67,12 +78,6 @@ suspend fun searchItemOne(): String {
 suspend fun searchItemTwo(): String {
     delay(1000L)
     return "item-two"
-}
-
-fun main() = runBlocking<Unit> {
-    val one = async { searchItemOne() }
-    val two = async { searchItemTwo() }
-    println("The item is ${one.await()} and ${two.await()}")
 }
 
 suspend fun search() {
@@ -247,5 +252,58 @@ fun <T> withLock(lock: Lock, action: () -> T): T {
     } finally {
         lock.unlock()
     }
+    return action()
+}
+
+
+data class Goods(val id: Long, val name: String, val stock: Int)
+data class Address(val userId: Long, val location: String)
+
+@RequiresApi(Build.VERSION_CODES.N)
+fun doOrder(goods: Goods, address: Address): CompletableFuture<Long> { // 进行下单操作
+    return CompletableFuture.supplyAsync {
+        Thread.sleep(1000)              // 模拟IO操作
+        1L
+    }
+}
+@RequiresApi(Build.VERSION_CODES.N)
+fun main() {
+
+}
+
+val threadCount = Runtime.getRuntime().availableProcessors()
+val threadPoolExecutor = Executors.newFixedThreadPool(threadCount) // 线程池
+val scheduler = Schedulers.from(threadPoolExecutor)
+
+fun getGoodsFromDB(goodsId: Long): Observable<Goods> {
+    return Observable.defer {
+        Thread.sleep(1000)
+        Observable.just(Goods(goodsId, "深入Kotlin", 10))
+    }
+}
+
+fun getAddressFromDB(userId: Long): Observable<Address> {
+    return Observable.defer {
+        Thread.sleep(1000)
+        Observable.just(Address(userId, "杭州"))
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.N)
+fun rxOrder(goodsId: Long, userId: Long) {
+    var goods: Goods? = null
+    var address: Address? = null
+
+    val goodsF: Observable<Goods> = getGoodsFromDB(1).subscribeOn(scheduler)
+    val addressF = getAddressFromDB(1).subscribeOn(scheduler)
+
+    Observable.merge(goodsF, addressF).subscribe( {
+        when (it) {
+            is Goods -> goods = it
+            is Address -> address = it
+        }
+    }, {}, {
+        doOrder(goods!!, address!!)
+    })
 }
 
